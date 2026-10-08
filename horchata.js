@@ -39,10 +39,6 @@ if (!elements.milk.reactions) {
     elements.milk.reactions = {};
 }
 
-if (!elements.cinnamon.reactions) {
-    elements.cinnamon.reactions = {};
-}
-
 elements.rice.reactions["milk"] = {
     elem1: null,
     elem2: "rice_milk"
@@ -50,10 +46,5 @@ elements.rice.reactions["milk"] = {
 
 elements.milk.reactions["rice"] = {
     elem1: "rice_milk",
-    elem2: null
-};
-
-elements.cinnamon.reactions["rice_milk"] = {
-    elem1: "horchata",
     elem2: null
 };
