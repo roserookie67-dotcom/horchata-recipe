@@ -1,20 +1,12 @@
-// ================================
-// HORCHATA MOD :3
-// ================================
-
-// Condensed Milk
 elements.condensed_milk = {
-    color: "#c9a27f",
+    color: "#c9aa8d",
     behavior: behaviors.LIQUID,
     category: "liquids",
     state: "liquid",
-    density: 1100,
-    viscosity: 2500,
-
-    reactions: {}
+    density: 1050,
+    viscosity: 2000
 };
 
-// Rice Milk
 elements.rice_milk = {
     color: "#e8e1cf",
     behavior: behaviors.LIQUID,
@@ -22,7 +14,6 @@ elements.rice_milk = {
     state: "liquid",
     density: 1020,
     viscosity: 1800,
-
     reactions: {
         "cinnamon": {
             elem1: "horchata",
@@ -31,9 +22,8 @@ elements.rice_milk = {
     }
 };
 
-// Horchata
 elements.horchata = {
-    color: "#bda98f",
+    color: "#bca98f",
     behavior: behaviors.LIQUID,
     category: "liquids",
     state: "liquid",
@@ -41,25 +31,29 @@ elements.horchata = {
     viscosity: 2000
 };
 
+if (!elements.rice.reactions) {
+    elements.rice.reactions = {};
+}
 
-// ================================
-// RICE + MILK = RICE MILK
-// ================================
+if (!elements.milk.reactions) {
+    elements.milk.reactions = {};
+}
 
-// Add the reaction to rice...
-elements.rice.reactions ??= {};
+if (!elements.cinnamon.reactions) {
+    elements.cinnamon.reactions = {};
+}
 
 elements.rice.reactions["milk"] = {
     elem1: null,
     elem2: "rice_milk"
 };
 
-// ...and milk gets the matching reaction.
-// This makes the result work regardless of which
-// ingredient is considered the first pixel.
-elements.milk.reactions ??= {};
-
 elements.milk.reactions["rice"] = {
     elem1: "rice_milk",
+    elem2: null
+};
+
+elements.cinnamon.reactions["rice_milk"] = {
+    elem1: "horchata",
     elem2: null
 };
