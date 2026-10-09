@@ -1,45 +1,29 @@
-// HORCHATA RECIPE MOD
+// HORCHATA RECIPES
 // Rice + Milk = Rice Milk
 // Rice Milk + Cinnamon = Horchata
 
-console.log("Loading Horchata Recipe Mod...");
+function addReaction(elementName, targetName, resultSelf, resultTarget) {
+    if (!elements[elementName] || !elements[targetName]) {
+        console.warn("Horchata recipe missing element:", elementName, targetName);
+        return;
+    }
 
-// Check that the custom elements exist
-console.log("rice_milk exists:", !!elements.rice_milk);
-console.log("horchata exists:", !!elements.horchata);
-console.log("rice exists:", !!elements.rice);
-console.log("milk exists:", !!elements.milk);
-console.log("cinnamon exists:", !!elements.cinnamon);
+    elements[elementName].reactions =
+        elements[elementName].reactions || {};
 
-// RECIPE 1: RICE + MILK = RICE MILK
-if (elements.rice && elements.milk && elements.rice_milk) {
-    elements.rice.reactions = elements.rice.reactions || {};
-
-    elements.rice.reactions.milk = {
-        elem1: null,
-        elem2: "rice_milk",
+    elements[elementName].reactions[targetName] = {
+        elem1: resultSelf,
+        elem2: resultTarget,
         chance: 1
     };
-
-    console.log("Rice + milk recipe registered!");
-} else {
-    console.error("Rice + milk recipe failed: an element ID is missing.");
 }
 
-// RECIPE 2: RICE MILK + CINNAMON = HORCHATA
-if (elements.rice_milk && elements.cinnamon && elements.horchata) {
-    elements.rice_milk.reactions =
-        elements.rice_milk.reactions || {};
+// Rice + Milk -> Rice Milk
+addReaction("rice", "milk", null, "rice_milk");
+addReaction("milk", "rice", "rice_milk", null);
 
-    elements.rice_milk.reactions.cinnamon = {
-        elem1: "horchata",
-        elem2: null,
-        chance: 1
-    };
+// Rice Milk + Cinnamon -> Horchata
+addReaction("rice_milk", "cinnamon", "horchata", null);
+addReaction("cinnamon", "rice_milk", null, "horchata");
 
-    console.log("Rice milk + cinnamon recipe registered!");
-} else {
-    console.error("Horchata recipe failed: an element ID is missing.");
-}
-
-console.log("Horchata Recipe Mod finished loading!");
+console.log("Horchata recipes registered!");
